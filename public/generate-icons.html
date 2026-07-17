@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- Run this file locally in a browser to generate icon PNGs from image.png.
+     Open DevTools console and call generateIcons() — it will download all sizes. -->
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<img id="src" src="/image.png" style="display:none" crossorigin="anonymous" />
+<script>
+const SIZES = [72, 96, 128, 144, 152, 192, 384, 512];
+
+function generateIcons() {
+  const img = document.getElementById('src');
+  SIZES.forEach((size) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, size, size);
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `icon-${size}.png`;
+    a.click();
+  });
+}
+
+document.getElementById('src').onload = generateIcons;
+</script>
+</body>
+</html>
